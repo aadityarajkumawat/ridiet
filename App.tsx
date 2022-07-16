@@ -1,20 +1,79 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { onAuthStateChanged } from 'firebase/auth'
+import { NativeBaseProvider } from 'native-base'
+import { useState } from 'react'
+import { auth } from './configs/firebase.config'
+import { Navigator, Screen } from './configs/Navigator'
+import { theme } from './configs/styleConfig'
+import { Home } from './Screens/Home'
+import { Login } from './Screens/Login'
+import { Register } from './Screens/Register'
+import { SelectAllergy } from './Screens/SelectAllergy'
+import { SelectDiet } from './Screens/SelectDiet'
+import { SelectDiseases } from './Screens/SelectDiseases'
+import { StartScreen } from './Screens/StartScreen'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+function useAuthenticated() {
+    const [authenticated, setAuthenticated] = useState<boolean>(false)
+
+    onAuthStateChanged(auth, (user) => {
+        setAuthenticated(!!user)
+    })
+
+    return authenticated
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+    const authenticated = useAuthenticated()
+
+    return (
+        <NativeBaseProvider theme={theme}>
+            <NavigationContainer>
+                <Navigator>
+                    {!authenticated ? (
+                        <>
+                            <Screen
+                                name='StartScreen'
+                                component={StartScreen}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='Login'
+                                component={Login}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='Register'
+                                component={Register}
+                                options={{ headerShown: false }}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Screen
+                                name='Home'
+                                component={Home}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='SelectDiseases'
+                                component={SelectDiseases}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='SelectAllergy'
+                                component={SelectAllergy}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='SelectDiet'
+                                component={SelectDiet}
+                                options={{ headerShown: false }}
+                            />
+                        </>
+                    )}
+                </Navigator>
+            </NavigationContainer>
+        </NativeBaseProvider>
+    )
+}
