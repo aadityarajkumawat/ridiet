@@ -1,5 +1,6 @@
 import { Box, Button, HStack, Text } from 'native-base'
 import { TouchableOpacity } from 'react-native'
+import { themeConfig } from '../configs/styleConfig'
 
 export function SelectButton(props: any) {
     return (
@@ -20,29 +21,35 @@ export function SelectButton(props: any) {
 
             {props.types.length > 0 && props.selected && (
                 <HStack mt={2}>
-                    {props.types.map((t: string, i: number) => (
-                        <TouchableOpacity
-                            key={i}
-                            onPress={() => props.onAddType(t)}
-                            style={{
-                                backgroundColor: props.selectedTypes.includes(t)
-                                    ? 'purple3'
-                                    : 'white',
-                                marginRight: 4,
-                            }}
-                        >
-                            <Text
-                                borderRadius={3}
-                                px={5}
-                                py={2}
-                                borderColor='purple1'
-                                borderWidth={2}
-                                color='purple1'
+                    {props.types.map((t: string, i: number) => {
+                        console.log(props.selectedTypes.includes(t))
+
+                        return (
+                            <TouchableOpacity
+                                key={i}
+                                onPress={() => props.onAddType(t)}
+                                style={{
+                                    backgroundColor:
+                                        props.selectedTypes.includes(t)
+                                            ? themeConfig.colors.purple3
+                                            : 'white',
+                                    marginRight: 4,
+                                    borderRadius: 5,
+                                }}
                             >
-                                {t}
-                            </Text>
-                        </TouchableOpacity>
-                    ))}
+                                <Text
+                                    borderRadius={3}
+                                    px={5}
+                                    py={2}
+                                    borderColor='purple1'
+                                    borderWidth={2}
+                                    color='purple1'
+                                >
+                                    {t}
+                                </Text>
+                            </TouchableOpacity>
+                        )
+                    })}
                 </HStack>
             )}
         </TouchableOpacity>

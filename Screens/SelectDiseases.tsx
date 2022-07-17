@@ -57,6 +57,17 @@ export function SelectDiseases(props: any) {
                             setLocal((l) => {
                                 const cpL = { ...l }
 
+                                const alreadyHasType =
+                                    cpL.diseases[i].selectedTypes.includes(type)
+                                if (alreadyHasType) {
+                                    cpL.diseases[i].selectedTypes =
+                                        cpL.diseases[i].selectedTypes.filter(
+                                            (st) => st !== type,
+                                        )
+
+                                    return cpL
+                                }
+
                                 cpL.diseases[i].selectedTypes.push(type)
 
                                 return cpL
