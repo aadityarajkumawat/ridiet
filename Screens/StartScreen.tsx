@@ -19,7 +19,7 @@ export function StartScreen(props: any) {
     const [local, setLocal] = useState({ displayImage: 0 })
 
     useEffect(() => {
-        setInterval(() => {
+        const timer = setInterval(() => {
             setLocal((l) => {
                 let v = l.displayImage
                 if (l.displayImage === 2) {
@@ -32,6 +32,8 @@ export function StartScreen(props: any) {
                 }
             })
         }, 2000)
+
+        return () => clearInterval(timer)
     }, [])
 
     onAuthStateChanged(auth, function (user) {

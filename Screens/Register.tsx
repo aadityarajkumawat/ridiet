@@ -144,11 +144,8 @@ export function Register(props: any) {
                         title='Register'
                         mt={3}
                         onPress={async () => {
-                            console.log(local)
-
-                            await registerUser()
-
-                            // props.navigation.navigate('SelectDiseases')
+                            // await registerUser()
+                            props.navigation.navigate('SelectDiseases')
                         }}
                     />
                     <HStack space={2} mt={2}>

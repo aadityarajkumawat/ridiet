@@ -30,48 +30,49 @@ export default function App() {
         <NativeBaseProvider theme={theme}>
             <NavigationContainer>
                 <Navigator>
-                    {!authenticated ? (
-                        <>
-                            <Screen
-                                name='StartScreen'
-                                component={StartScreen}
-                                options={{ headerShown: false }}
-                            />
-                            <Screen
-                                name='Login'
-                                component={Login}
-                                options={{ headerShown: false }}
-                            />
-                            <Screen
-                                name='Register'
-                                component={Register}
-                                options={{ headerShown: false }}
-                            />
-                        </>
-                    ) : (
-                        <>
-                            <Screen
-                                name='Home'
-                                component={Home}
-                                options={{ headerShown: false }}
-                            />
-                            <Screen
-                                name='SelectDiseases'
-                                component={SelectDiseases}
-                                options={{ headerShown: false }}
-                            />
-                            <Screen
-                                name='SelectAllergy'
-                                component={SelectAllergy}
-                                options={{ headerShown: false }}
-                            />
-                            <Screen
-                                name='SelectDiet'
-                                component={SelectDiet}
-                                options={{ headerShown: false }}
-                            />
-                        </>
-                    )}
+                    {/* {!authenticated ? ( */}
+                    {/* // <> */}
+                    <Screen
+                        name='SelectDiseases'
+                        component={SelectDiseases}
+                        options={{ headerShown: false }}
+                    />
+                    <Screen
+                        name='StartScreen'
+                        component={StartScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Screen
+                        name='Login'
+                        component={Login}
+                        options={{ headerShown: false }}
+                    />
+                    <Screen
+                        name='Register'
+                        component={Register}
+                        options={{ headerShown: false }}
+                    />
+                    {/* </> */}
+                    {/* ) : ( */}
+                    {/* <> */}
+                    <Screen
+                        name='Home'
+                        component={Home}
+                        options={{ headerShown: false }}
+                    />
+
+                    <Screen
+                        name='SelectAllergy'
+                        component={SelectAllergy}
+                        options={{ headerShown: false }}
+                    />
+                    <Screen
+                        name='SelectDiet'
+                        component={SelectDiet}
+                        options={{ headerShown: false }}
+                    />
+                    {/* </> */}
+                    {/* )} */}
                 </Navigator>
             </NavigationContainer>
         </NativeBaseProvider>
