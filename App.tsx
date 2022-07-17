@@ -32,9 +32,10 @@ export default function App() {
                 <Navigator>
                     {/* {!authenticated ? ( */}
                     {/* // <> */}
+
                     <Screen
-                        name='SelectDiseases'
-                        component={SelectDiseases}
+                        name='SelectDiet'
+                        component={SelectDiet}
                         options={{ headerShown: false }}
                     />
                     <Screen
@@ -55,22 +56,18 @@ export default function App() {
                     {/* </> */}
                     {/* ) : ( */}
                     {/* <> */}
+
                     <Screen
                         name='Home'
                         component={Home}
                         options={{ headerShown: false }}
                     />
+                    <Screen
+                        name='SelectDiseases'
+                        component={SelectDiseases}
+                        options={{ headerShown: false }}
+                    />
 
-                    <Screen
-                        name='SelectAllergy'
-                        component={SelectAllergy}
-                        options={{ headerShown: false }}
-                    />
-                    <Screen
-                        name='SelectDiet'
-                        component={SelectDiet}
-                        options={{ headerShown: false }}
-                    />
                     {/* </> */}
                     {/* )} */}
                 </Navigator>

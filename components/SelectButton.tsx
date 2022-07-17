@@ -2,7 +2,19 @@ import { Box, Button, HStack, Text } from 'native-base'
 import { TouchableOpacity } from 'react-native'
 import { themeConfig } from '../configs/styleConfig'
 
-export function SelectButton(props: any) {
+interface SelectButtonProps {
+    name: string
+    selected: string
+    selectedTypes?: Array<string>
+    types?: Array<string>
+    onAddType?: (type: string) => void
+    onPress: () => void
+}
+
+export function SelectButton(props: SelectButtonProps) {
+    const isSelected = (type: string) =>
+        props.selectedTypes && props.selectedTypes.includes(type)
+
     return (
         <TouchableOpacity onPress={props.onPress}>
             <Box
@@ -19,20 +31,19 @@ export function SelectButton(props: any) {
                 </Text>
             </Box>
 
-            {props.types.length > 0 && props.selected && (
-                <HStack mt={2}>
-                    {props.types.map((t: string, i: number) => {
-                        console.log(props.selectedTypes.includes(t))
-
-                        return (
+            {props.types &&
+                props.onAddType &&
+                props.types.length > 0 &&
+                props.selected && (
+                    <HStack mt={2}>
+                        {props.types.map((t, i) => (
                             <TouchableOpacity
                                 key={i}
                                 onPress={() => props.onAddType(t)}
                                 style={{
-                                    backgroundColor:
-                                        props.selectedTypes.includes(t)
-                                            ? themeConfig.colors.purple3
-                                            : 'white',
+                                    backgroundColor: isSelected(t)
+                                        ? themeConfig.colors.purple3
+                                        : 'white',
                                     marginRight: 4,
                                     borderRadius: 5,
                                 }}
@@ -43,15 +54,18 @@ export function SelectButton(props: any) {
                                     py={2}
                                     borderColor='purple1'
                                     borderWidth={2}
-                                    color='purple1'
+                                    color={
+                                        isSelected(t)
+                                            ? 'white'
+                                            : themeConfig.colors.purple3
+                                    }
                                 >
                                     {t}
                                 </Text>
                             </TouchableOpacity>
-                        )
-                    })}
-                </HStack>
-            )}
+                        ))}
+                    </HStack>
+                )}
         </TouchableOpacity>
     )
 }
