@@ -52,13 +52,22 @@ export function Home(props: any) {
 
     return (
         <Layout>
-            <Text fontSize={30}>Homfghgfe</Text>
+            <Text fontSize={30}>Home</Text>
 
-            <RDButton title='add data' onPress={() => addData()} />
+            {/* <RDButton title='add data' onPress={() => addData()} />
 
-            <RDButton title='get data' onPress={() => getData()} />
+            <RDButton title='get data' onPress={() => getData()} /> */}
 
-            <RDButton title='Logout' onPress={() => signOut(auth)} />
+            <RDButton
+                w='100%'
+                title='Logout'
+                onPress={() => {
+                    ;(async () => {
+                        console.log('colodf')
+                        await signOut(auth)
+                    })()
+                }}
+            />
         </Layout>
     )
 }

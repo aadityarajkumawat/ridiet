@@ -20,3 +20,14 @@ type BaseColors = keyof Theme['colors']
 export type RDColor = keyof typeof themeConfig['colors'] | BaseColors
 
 export type Gender = 'M' | 'F' | 'O'
+
+export interface FirebaseDisease {
+    diseaseId: string
+    name: string
+    types: Array<string>
+}
+
+export interface Disease extends FirebaseDisease {
+    selected: boolean
+    selectedTypes: Array<string>
+}

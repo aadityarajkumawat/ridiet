@@ -1,9 +1,16 @@
 import { extendTheme } from 'native-base'
 
 export const themeConfig = {
-    fontConfig: {
-        body: 'Inter',
-    },
+    // fonts: {
+    //     body: 'inter',
+    // },
+    // fontConfig: {
+    //     inter: {
+    //         400: {
+    //             normal: 'inter400R',
+    //         },
+    //     },
+    // },
     colors: {
         blue1: '#0075FF',
         blue2: '#3994FF',

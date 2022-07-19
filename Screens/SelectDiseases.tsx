@@ -1,51 +1,57 @@
 import { collection, getDocs } from 'firebase/firestore'
-import { Flex, Text, VStack } from 'native-base'
+import { Text, VStack } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Layout } from '../components/Layout'
 import { RDButton } from '../components/RDButton'
+import { RDLoading } from '../components/RDLoading'
 import { SelectButton } from '../components/SelectButton'
 import { db } from '../configs/firebase.config'
-
-interface FirebaseDisease {
-    diseaseId: string
-    name: string
-    types: Array<string>
-}
-
-interface Disease extends FirebaseDisease {
-    selected: boolean
-    showTypes: boolean
-    selectedTypes: Array<string>
-}
+import { Disease, FirebaseDisease } from '../constants/types'
+import { useStore } from '../zustand/store'
 
 interface LocalState {
     diseases: Array<Disease>
+    loadingDiseases: boolean
+}
+
+async function loadDiseases() {
+    const diseasesCollection = collection(db, 'diseases')
+    const result = await getDocs(diseasesCollection)
+    const diseases = result.docs.map((d) => ({
+        ...(d.data() as FirebaseDisease),
+        selected: false,
+        selectedTypes: [],
+    }))
+
+    return diseases
 }
 
 export function SelectDiseases(props: any) {
     const [local, setLocal] = useState<LocalState>({
         diseases: [],
+        loadingDiseases: true,
     })
 
-    async function loadDiseases() {
-        const diseasesCollection = collection(db, 'diseases')
-        const result = await getDocs(diseasesCollection)
-        const diseases = result.docs.map((d) => ({
-            ...(d.data() as FirebaseDisease),
-            selected: false,
-            showTypes: false,
-            selectedTypes: [],
-        }))
-
-        setLocal((ls) => ({ ...ls, diseases }))
-    }
+    const { updateDisease } = useStore((s) => ({
+        updateDisease: s.updateOnBoardingDiseases,
+    }))
 
     useEffect(() => {
-        loadDiseases()
+        async function asyncE() {
+            setLocal((l) => ({ ...l, loadingDiseases: true }))
+            const diseases = await loadDiseases()
+            setLocal((ls) => ({ ...ls, diseases, loadingDiseases: false }))
+        }
+
+        asyncE()
     }, [])
 
+    if (local.loadingDiseases) {
+        return <RDLoading />
+    }
+
     return (
-        <Layout mx={3} my={3}>
+        <Layout>
             <Text fontSize='2xl'>Select Diseases</Text>
 
             <VStack w='full'>
@@ -92,7 +98,27 @@ export function SelectDiseases(props: any) {
                 position={'absolute'}
                 bottom={7}
                 w={'full'}
-                onPress={() => props.navigation.navigate('SelectAllergy')}
+                onPress={() => {
+                    const selectedDiseases: Array<
+                        Omit<Disease, 'selected' | 'types'>
+                    > = []
+
+                    for (let dise of local.diseases) {
+                        const { selected, types, ...dis } = dise
+                        if (dise.selected) {
+                            if (dise.types.length > 0) {
+                                if (dis.selectedTypes.length !== 0) {
+                                    selectedDiseases.push(dis)
+                                }
+                            } else {
+                                selectedDiseases.push(dis)
+                            }
+                        }
+                    }
+
+                    updateDisease(selectedDiseases)
+                    props.navigation.navigate('SelectDiet')
+                }}
             />
         </Layout>
     )

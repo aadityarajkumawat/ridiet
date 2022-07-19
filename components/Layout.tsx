@@ -16,6 +16,8 @@ export function Layout(props: LayoutProps) {
             h='full'
             bgColor='#fff'
             alignItems='center'
+            px={3}
+            py={3}
         >
             <StatusBar barStyle='default' />
             {props.children}

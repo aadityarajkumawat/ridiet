@@ -1,6 +1,7 @@
-import { Button, IButtonProps, Text } from 'native-base'
+import { Button, IButtonProps } from 'native-base'
 import { ReactNode } from 'react'
 import { ButtonType, RDColor } from '../constants/types'
+import { RDText } from './RDText'
 
 interface RDButtonProps extends IButtonProps {
     title: string
@@ -23,9 +24,9 @@ export function RDButton(props: RDButtonProps) {
             borderColor='purple1'
             {...buttonProps}
         >
-            <Text fontSize='lg' fontWeight='medium' color='grey6'>
+            <RDText fontSize='lg' fontWeight='medium' color='grey6'>
                 {props.title}
-            </Text>
+            </RDText>
         </Button>
     )
 }

@@ -1,3 +1,4 @@
+import { Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
 import { NavigationContainer } from '@react-navigation/native'
 import { onAuthStateChanged } from 'firebase/auth'
 import { NativeBaseProvider } from 'native-base'
@@ -8,7 +9,6 @@ import { theme } from './configs/styleConfig'
 import { Home } from './Screens/Home'
 import { Login } from './Screens/Login'
 import { Register } from './Screens/Register'
-import { SelectAllergy } from './Screens/SelectAllergy'
 import { SelectDiet } from './Screens/SelectDiet'
 import { SelectDiseases } from './Screens/SelectDiseases'
 import { StartScreen } from './Screens/StartScreen'
@@ -26,50 +26,51 @@ function useAuthenticated() {
 export default function App() {
     const authenticated = useAuthenticated()
 
+    const [fontsLoaded] = useFonts({ inter400R: Inter_400Regular })
+
+    if (!fontsLoaded) return null
+
     return (
         <NativeBaseProvider theme={theme}>
             <NavigationContainer>
                 <Navigator>
-                    {/* {!authenticated ? ( */}
-                    {/* // <> */}
-
-                    <Screen
-                        name='SelectDiet'
-                        component={SelectDiet}
-                        options={{ headerShown: false }}
-                    />
-                    <Screen
-                        name='StartScreen'
-                        component={StartScreen}
-                        options={{ headerShown: false }}
-                    />
-                    <Screen
-                        name='Login'
-                        component={Login}
-                        options={{ headerShown: false }}
-                    />
-                    <Screen
-                        name='Register'
-                        component={Register}
-                        options={{ headerShown: false }}
-                    />
-                    {/* </> */}
-                    {/* ) : ( */}
-                    {/* <> */}
-
-                    <Screen
-                        name='Home'
-                        component={Home}
-                        options={{ headerShown: false }}
-                    />
-                    <Screen
-                        name='SelectDiseases'
-                        component={SelectDiseases}
-                        options={{ headerShown: false }}
-                    />
-
-                    {/* </> */}
-                    {/* )} */}
+                    {!authenticated ? (
+                        <>
+                            <Screen
+                                name='StartScreen'
+                                component={StartScreen}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='Login'
+                                component={Login}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='Register'
+                                component={Register}
+                                options={{ headerShown: false }}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Screen
+                                name='Home'
+                                component={Home}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='SelectDiseases'
+                                component={SelectDiseases}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='SelectDiet'
+                                component={SelectDiet}
+                                options={{ headerShown: false }}
+                            />
+                        </>
+                    )}
                 </Navigator>
             </NavigationContainer>
         </NativeBaseProvider>

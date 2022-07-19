@@ -11,11 +11,13 @@ import {
     VStack,
 } from 'native-base'
 import React, { useState } from 'react'
+import { useStore } from '../zustand/store'
 import { Layout } from '../components/Layout'
 import { Logo } from '../components/Logo'
 import { RDButton } from '../components/RDButton'
 import { auth } from '../configs/firebase.config'
 import { Gender } from '../constants/types'
+import { StoreState } from '../zustand/store'
 
 const initialState = {
     form: {
@@ -36,6 +38,11 @@ const numericFormFields: Array<FieldName> = ['age']
 export function Register(props: any) {
     const [local, setLocal] = useState<LocalState>({ ...initialState })
 
+    const { updateProfile, data } = useStore((s) => ({
+        updateProfile: s.updateOnBoardingProfile,
+        data: s.onBoardingData,
+    }))
+
     function onChange(name: FieldName) {
         return function (value: string) {
             let normalizedValue: string | number = value
@@ -53,6 +60,8 @@ export function Register(props: any) {
 
     async function registerUser() {
         try {
+            const { password, ...profile } = local.form
+
             const userCred = await createUserWithEmailAndPassword(
                 auth,
                 local.form.email,
@@ -61,7 +70,8 @@ export function Register(props: any) {
 
             const userId = userCred.user.uid
 
-            console.log(userCred.user)
+            // save the details in local state
+            updateProfile({ userId, ...profile })
         } catch (error: any) {
             const { code, message } = error
             console.log({ code, message })
@@ -144,7 +154,7 @@ export function Register(props: any) {
                         title='Register'
                         mt={3}
                         onPress={async () => {
-                            // await registerUser()
+                            await registerUser()
                             props.navigation.navigate('SelectDiseases')
                         }}
                     />
