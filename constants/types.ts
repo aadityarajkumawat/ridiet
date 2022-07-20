@@ -1,4 +1,5 @@
 import { Theme } from 'native-base'
+import React, { SetStateAction } from 'react'
 import { themeConfig } from '../configs/styleConfig'
 
 export type RootStackParamList = {
@@ -31,3 +32,8 @@ export interface Disease extends FirebaseDisease {
     selected: boolean
     selectedTypes: Array<string>
 }
+
+export type Field = { value: string; error: string }
+
+export type StateSetter<T> = React.Dispatch<SetStateAction<T>>
+export type StateType<T> = [T, StateSetter<T>]

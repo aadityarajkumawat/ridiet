@@ -29,6 +29,7 @@
     "react-native-svg": "12.3.0",
     "react-native-web": "0.17.7",
     "uuid": "^8.3.2",
+    "zod": "^3.17.9",
     "zustand": "^4.0.0-rc.2"
   },
   "devDependencies": {

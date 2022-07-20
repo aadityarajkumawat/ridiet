@@ -36,15 +36,6 @@ export function StartScreen(props: any) {
         return () => clearInterval(timer)
     }, [])
 
-    onAuthStateChanged(auth, function (user) {
-        if (!user) {
-            console.log('not logged in!')
-            return
-        }
-
-        console.log('logged in')
-    })
-
     return (
         <Layout px={3}>
             <HStack w='full' my={5} justifyContent='center'>
