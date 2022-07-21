@@ -55,11 +55,6 @@ export default function App() {
                     ) : (
                         <>
                             <Screen
-                                name='Home'
-                                component={Home}
-                                options={{ headerShown: false }}
-                            />
-                            <Screen
                                 name='SelectDiseases'
                                 component={SelectDiseases}
                                 options={{ headerShown: false }}
@@ -67,6 +62,11 @@ export default function App() {
                             <Screen
                                 name='SelectDiet'
                                 component={SelectDiet}
+                                options={{ headerShown: false }}
+                            />
+                            <Screen
+                                name='Home'
+                                component={Home}
                                 options={{ headerShown: false }}
                             />
                         </>

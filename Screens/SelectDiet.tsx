@@ -1,7 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { addDoc, collection } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 import { Flex, Text } from 'native-base'
 import { useEffect, useRef, useState } from 'react'
+import { v4 } from 'uuid'
 import { Layout } from '../components/Layout'
 import { RDButton } from '../components/RDButton'
 import { RDLoading } from '../components/RDLoading'
@@ -74,17 +76,17 @@ export function SelectDiet(props: NativeStackScreenProps<RootStackParamList>) {
                 onPress={() => {
                     const [selectedDiet] = diet.filter((d) => d.selected)
                     updateDiet(selectedDiet.name)
+                    ;(async function saveData() {
+                        if (!getAuth().currentUser) return
 
-                    async function saveData() {
+                        const userId = getAuth().currentUser!.uid
+
                         setLocal((l) => ({ ...l, loading: true }))
-                        const usersRef = collection(db, 'users')
-                        await addDoc(usersRef, scratchRef.current)
+                        const usersRef = doc(db, 'users', userId)
+                        await setDoc(usersRef, scratchRef.current)
                         setLocal((l) => ({ ...l, loading: false }))
-                    }
-
-                    saveData()
-
-                    props.navigation.navigate('Home')
+                        props.navigation.navigate('Home')
+                    })()
                 }}
             />
         </Layout>

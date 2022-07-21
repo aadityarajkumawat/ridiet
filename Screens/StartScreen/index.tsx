@@ -1,16 +1,14 @@
 import { Box, HStack, Text } from 'native-base'
-import { Layout } from '../components/Layout'
-import { Logo } from '../components/Logo'
-import { RDButton } from '../components/RDButton'
-import { useWindowDimensions, Image } from 'react-native'
-import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../configs/firebase.config'
 import { useEffect, useState } from 'react'
+import { Image, useWindowDimensions } from 'react-native'
+import { Layout } from '../../components/Layout'
+import { Logo } from '../../components/Logo'
+import { RDButton } from '../../components/RDButton'
 
 const images = [
-    require('../assets/ss1.png'),
-    require('../assets/ss2.png'),
-    require('../assets/ss3.png'),
+    require('../../assets/ss1.png'),
+    require('../../assets/ss2.png'),
+    require('../../assets/ss3.png'),
 ]
 
 export function StartScreen(props: any) {

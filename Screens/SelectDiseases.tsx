@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { collection, getDocs } from 'firebase/firestore'
 import { Text, VStack } from 'native-base'
 import { useEffect, useState } from 'react'
@@ -6,7 +7,11 @@ import { RDButton } from '../components/RDButton'
 import { RDLoading } from '../components/RDLoading'
 import { SelectButton } from '../components/SelectButton'
 import { db } from '../configs/firebase.config'
-import { Disease, FirebaseDisease } from '../constants/types'
+import {
+    Disease,
+    FirebaseDisease,
+    RootStackParamList,
+} from '../constants/types'
 import { useStore } from '../zustand/store'
 
 interface LocalState {
@@ -26,7 +31,9 @@ async function loadDiseases() {
     return diseases
 }
 
-export function SelectDiseases(props: any) {
+export function SelectDiseases(
+    props: NativeStackScreenProps<RootStackParamList>,
+) {
     const [local, setLocal] = useState<LocalState>({
         diseases: [],
         loadingDiseases: true,

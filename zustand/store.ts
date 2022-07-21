@@ -49,7 +49,7 @@ const useStore = create<StoreState>((set) => ({
             ...state,
             onBoardingData: {
                 ...state.onBoardingData,
-                diseases: { ...state.onBoardingData.diseases, ...update },
+                diseases: [...state.onBoardingData.diseases, ...update],
             },
         })),
     updateOnBoardingDiet: (update) =>

@@ -1,4 +1,5 @@
-import { Theme } from 'native-base'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Theme, useToast } from 'native-base'
 import React, { SetStateAction } from 'react'
 import { themeConfig } from '../configs/styleConfig'
 
@@ -35,5 +36,17 @@ export interface Disease extends FirebaseDisease {
 
 export type Field = { value: string; error: string }
 
+export interface LoginForm {
+    email: Field
+    password: Field
+}
+
 export type StateSetter<T> = React.Dispatch<SetStateAction<T>>
 export type StateType<T> = [T, StateSetter<T>]
+export type ScreenProps = NativeStackScreenProps<RootStackParamList>
+export type NavigateFn = ScreenProps['navigation']['navigate']
+export type ToastConf = ReturnType<typeof useToast>
+
+export type ResolveValues<T> = {
+    [K in keyof T]: string
+}
