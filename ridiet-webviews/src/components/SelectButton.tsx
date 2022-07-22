@@ -1,5 +1,4 @@
-import { Box, HStack, Text } from 'native-base'
-import { TouchableOpacity } from 'react-native'
+import { Box, Button, HStack, Text } from 'native-base'
 import { themeConfig } from '../configs/styleConfig'
 import { RDText } from './RDText'
 
@@ -21,7 +20,7 @@ interface DiseaseTypeButtonProps {
 function DiseaseTypeButton(props: DiseaseTypeButtonProps) {
     const { isSelected, onAddType, t } = props
     return (
-        <TouchableOpacity
+        <Button
             onPress={() => onAddType(t)}
             style={{
                 backgroundColor: isSelected(t)
@@ -41,7 +40,7 @@ function DiseaseTypeButton(props: DiseaseTypeButtonProps) {
             >
                 {t}
             </RDText>
-        </TouchableOpacity>
+        </Button>
     )
 }
 
@@ -63,7 +62,7 @@ export function SelectButton(props: SelectButtonProps) {
 
     return (
         <>
-            <TouchableOpacity onPress={props.onPress} activeOpacity={0.7}>
+            <Button onPress={props.onPress}>
                 <Box
                     px={3}
                     py={2}
@@ -77,7 +76,7 @@ export function SelectButton(props: SelectButtonProps) {
                         {name}
                     </RDText>
                 </Box>
-            </TouchableOpacity>
+            </Button>
 
             {checkIfTypesAvailable() && (
                 <HStack mt={2}>

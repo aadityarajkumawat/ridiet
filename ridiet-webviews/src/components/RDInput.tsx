@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Center,
     Flex,
     FormControl,
@@ -9,7 +10,6 @@ import {
     WarningOutlineIcon,
 } from 'native-base'
 import { useState } from 'react'
-import { TouchableOpacity } from 'react-native'
 
 type ExtraInputProps = {
     error?: string
@@ -17,14 +17,14 @@ type ExtraInputProps = {
 
 function ShowPasswordButton(props: { toggle: () => void }) {
     return (
-        <TouchableOpacity
+        <Button
             onPress={props.toggle}
             style={{ backgroundColor: '#eee', height: '100%' }}
         >
             <Text mx={2} mt={2}>
                 show
             </Text>
-        </TouchableOpacity>
+        </Button>
     )
 }
 
