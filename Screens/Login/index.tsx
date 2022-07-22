@@ -1,19 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signInWithRedirect,
-} from 'firebase/auth'
-import {
-    Button,
-    Center,
-    HStack,
-    Link,
-    Text,
-    useToast,
-    VStack,
-} from 'native-base'
+import { Center, HStack, Link, Text, useToast, VStack } from 'native-base'
 import React, { useState } from 'react'
 import { Keyboard } from 'react-native'
 import { Layout } from '../../components/Layout'
@@ -21,7 +7,6 @@ import { Logo } from '../../components/Logo'
 import { RDButton } from '../../components/RDButton'
 import { RDInput } from '../../components/RDInput'
 import { RDText } from '../../components/RDText'
-import { googleProvider } from '../../configs/firebase.config'
 import { LoginForm, RootStackParamList } from '../../constants/types'
 import { localActions } from './loginHelpers'
 
